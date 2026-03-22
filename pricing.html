@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pricing Plans - Siphosethu Zuma | Web Developer</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+    <style>
+        /* ==== BASE STYLES (matches your existing portfolio) ==== */
+        html {
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            background-color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        main {
+            flex: 1;
+            background-color: #ffffff;
+        }
+
+        /* ----- NAV LINK STYLES - MINIMALIST ----- */
+        .nav-link {
+            position: relative;
+            color: #444444 !important;
+            text-decoration: none !important;
+            transition: color 0.3s ease;
+            padding: 0.5rem 1rem;
+            margin: 0 5px;
+            font-weight: 400;
+            letter-spacing: 0.3px;
+        }
+
+        .nav-link:hover {
+            color: #666666 !important;
+        }
+
+        .nav-link.active {
+            color: #222222 !important;
+            font-weight: 500;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            left: 1rem;
+            width: 0;
+            height: 1px;
+            background-color: #999;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: calc(80% - 1rem);
+        }
+
+        .nav-link.active::after {
+            width: calc(80% - 1rem) !important;
+            background-color: #222 !important;
+        }
+
+        /* Social icons - minimalist grayscale */
+        .social-icons svg {
+            width: 22px;
+            height: 22px;
+            fill: #777;
+            transition: all 0.2s ease;
+            opacity: 0.7;
+        }
+
+        .social-icons a:hover svg {
+            fill: #333;
+            opacity: 1;
+            transform: translateY(-2px);
+        }
+
+        .btn-hover {
+            transition: transform 0.3s ease;
+            display: inline-block;
+        }
+
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(0, 0, 0, 0.5)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+
+        .navbar-toggler {
+            border: none;
+            padding: 0.5rem;
+        }
+
+        .navbar-toggler:focus {
+            box-shadow: none;
+        }
+
+        /* Thicker header - minimalist */
+        .navbar {
+            background-color: #f8f8f8 !important;
+            padding: 2rem 1rem !important;
+            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05) !important;
+            z-index: 1000;
+            position: sticky;
+            top: 0;
+            border-bottom: 1px solid #eaeaea;
+        }
+
+        .navbar-brand {
+            color: #222 !important;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            font-size: 1.3rem;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1.5rem 1rem !important;
+            }
+        }
+
+        /* Footer - minimalist */
+        footer {
+            background-color: #f8f8f8 !important;
+            padding: 1.5rem 0;
+            text-align: center;
+            margin-top: 0;
+            border-top: 1px solid #eaeaea;
+        }
+        
+        footer .container a {
+            color: #777;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+            margin: 0 auto;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            transition: color 0.2s ease;
+        }
+        
+        footer .container a:hover {
+            color: #333;
+            text-decoration: none;
+        }
+
+        /* ===== PRICING PAGE STYLES ===== */
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Pricing container */
+        .pricing-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        /* Title section */
+        .pricing-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .pricing-title h2 {
+            font-size: 2.2rem;
+            font-weight: 300;
+            color: #222;
+            margin-bottom: 1rem;
+            letter-spacing: -0.5px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .pricing-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 1px;
+            background-color: #ccc;
+        }
+
+        .pricing-subtitle {
+            max-width: 700px;
+            margin: 1.5rem auto 0;
+            text-align: center;
+            color: #555;
+            font-size: 1rem;
+            font-weight: 300;
+        }
+
+        /* Section headers */
+        .section-header {
+            text-align: center;
+            margin: 3rem 0 1.5rem;
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .section-header h3 {
+            font-size: 1.6rem;
+            font-weight: 400;
+            color: #333;
+            letter-spacing: -0.3px;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 8px;
+        }
+
+        .section-header h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 1px;
+            background-color: #ccc;
+        }
+
+        /* Pricing cards grid */
+        .pricing-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .pricing-card {
+            background: #fff;
+            border: 1px solid #eaeaea;
+            border-radius: 0;
+            padding: 0;
+            width: 280px;
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+            animation: scaleIn 0.6s ease forwards;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.05);
+            border-color: #ddd;
+        }
+
+        /* Card header */
+        .card-header {
+            background: #fafafa;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        .card-header h4 {
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin: 0;
+            color: #222;
+            letter-spacing: 0.3px;
+        }
+
+        .price {
+            font-size: 1.8rem;
+            font-weight: 500;
+            color: #222;
+            margin: 0.75rem 0 0;
+        }
+
+        .price small {
+            font-size: 0.8rem;
+            font-weight: 300;
+            color: #777;
+        }
+
+        .monthly-total {
+            font-size: 0.8rem;
+            color: #888;
+            margin-top: 5px;
+        }
+
+        /* Card body */
+        .card-body {
+            padding: 1.5rem;
+            flex: 1;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .feature-list li {
+            padding: 8px 0;
+            font-size: 0.85rem;
+            color: #555;
+            border-bottom: 1px solid #f5f5f5;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+
+        .check-icon {
+            width: 14px;
+            height: 14px;
+            fill: #888;
+            flex-shrink: 0;
+        }
+
+        /* Recommended badge */
+        .recommended {
+            border-top: 2px solid #aaa;
+        }
+
+        .recommended-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #fff;
+            color: #555;
+            font-size: 0.7rem;
+            padding: 2px 12px;
+            border: 1px solid #eaeaea;
+            letter-spacing: 0.5px;
+            font-weight: 400;
+        }
+
+        /* Note section */
+        .pricing-note {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 1.5rem;
+            background: #fafafa;
+            border: 1px solid #eaeaea;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .pricing-note p {
+            margin: 0;
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        /* ===== FLOATING WHATSAPP ICON ===== */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background-color: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            animation: fadeInUp 0.5s ease 0.6s forwards;
+            opacity: 0;
+            animation-fill-mode: forwards;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+            background-color: #20b859;
+        }
+
+        .whatsapp-float svg {
+            width: 32px;
+            height: 32px;
+            fill: white;
+        }
+
+        /* Tooltip for WhatsApp */
+        .whatsapp-tooltip {
+            position: absolute;
+            right: 70px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            font-family: inherit;
+        }
+
+        .whatsapp-float:hover .whatsapp-tooltip {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .whatsapp-float {
+                bottom: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+            }
+            
+            .whatsapp-float svg {
+                width: 28px;
+                height: 28px;
+            }
+            
+            .whatsapp-tooltip {
+                display: none;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .pricing-container {
+                padding: 40px 20px;
+            }
+            
+            .pricing-title h2 {
+                font-size: 2rem;
+            }
+            
+            .pricing-card {
+                width: 100%;
+                max-width: 320px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .pricing-title h2 {
+                font-size: 1.8rem;
+            }
+            
+            .section-header h3 {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+     <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm box-shadow sticky-top">
+            <div class="container-fluid">
+                <a class="navbar-brand mx-auto d-sm-none" href="#">Siphosethu Zuma</a>
+                <a class="navbar-brand d-none d-sm-block" href="#">Siphosethu Zuma</a>
+                
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="About.html">About</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="Pricing.html">Pricing</a></li>
+                        <li class="nav-item"><a class="nav-link" href="Portfolio.html">Portfolio</a></li>
+                        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                    </ul>
+
+                    <!-- Minimalist social icons - all grayscale -->
+                    <div class="social-icons d-flex gap-3">
+                        <a href="https://www.linkedin.com/in/siphosethu-zuma-a41776211/" target="_blank" rel="noopener noreferrer">
+                            <div class="btn-hover">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/>
+                                </svg>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="pricing-container">
+            <div class="pricing-title">
+                <h2>Affordable Web Solutions</h2>
+                <p class="pricing-subtitle">Pietermaritzburg & Durban pricing — fair rates for local businesses, creatives, and entrepreneurs. No hidden costs, just quality work.</p>
+            </div>
+
+            <!-- PORTFOLIO PACKAGES - ENTRY LEVEL -->
+            <div class="section-header">
+                <h3>Portfolio Websites</h3>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="card-header">
+                        <h4>Starter Portfolio</h4>
+                        <div class="price">R1,500 <small>once-off</small></div>
+                        <div class="monthly-total">+ R99/month hosting</div>
+                    </div>
+                    <div class="card-body">
+                        <ul class="feature-list">
+                            <li><svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>1-page website</li>
+                            <li><svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>Mobile responsive</li>
+                            <li><svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>Contact form</li>
+                            <li><svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>Social media links</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="pricing-card recommended">
+                    <div class="recommended-badge">Popular</div>
+                    <div class="card-header">
+                        <h4>Standard Portfolio</h4>
+                        <div class="price">R2,500 <small>once-off</small></div>
+                        <div class="monthly-total">+ R129/month hosting</div>
+                    </div>
+                    <div class="card-body">
+                        <ul class="feature-list">
+                            <li><svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>3-5 page website</li>
+                            <li><svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>Project gallery</li>
+                            <li><svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>About, Services, Contact</li>
+                            <li><svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>Google Maps</li>
+                            <li><svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>1 hour training</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="pricing-card">
+                    <div class="card-header">
+                        <h4>Portfolio + CMS</h4>
+                        <div class="price">R3,500 <small>once-off</small></div>
+                        <div class="monthly-total">+ R179/month hosting</div>
+                    </div>
+                    <div class="card-body">
+                        <ul class="feature-list">
+                            <li><svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>All Standard features +</li>
+                            <li><svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>Admin panel to manage projects</li>
+                            <li><svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>Add/edit content yourself</li>
+                            <li><svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>Google Analytics</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BUSINESS WEBSITE PACKAGES -->
+            <div class="section-header">
+                <h3>Business Websites</h3>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="card-header">
+                        <h4>Basic Business</h4>
+                        <div class="price">R3,500 <small>once-off</small></div>
+                        <div class="monthly-total">+ R179/month hosting</div>
+                    </div>
+                    <div class="card-body">
+                        <ul class="feature-list">
+                            <li><svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>5-page business site</li>
+                            <li><svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>Contact form (email)</li>
+                            <li><svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>Google Maps</li>
+                            <li><svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>Basic SEO</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="pricing-card recommended">
+                    <div class="recommended-badge">Best Value</div>
+                    <div class="card-header">
+                        <h4>Professional Business</h4>
+                        <div class="price">R5,500 <small>once-off</small></div>
+                        <div class="monthly-total">+ R249/month hosting</div>
+                    </div>
+                    <div class="card-body">
+                        <ul class="feature-list">
+                            <li><svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>8-page website</li>
+                            <li><svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>Quote database (store leads)</li>
+                            <li><svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>Simple admin panel</li>
+                            <li><svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>Gallery management</li>
+                            <li><svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>Testimonials system</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="pricing-card">
+                    <div class="card-header">
+                        <h4>Advanced Business</h4>
+                        <div class="price">R7,500 <small>once-off</small></div>
+                        <div class="monthly-total">+ R349/month hosting</div>
+                    </div>
+                    <div class="card-body">
+                        <ul class="feature-list">
+                            <li><svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>12+ pages, blog system</li>
+                            <li><svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>Complete admin dashboard</li>
+                            <li><svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>Lead tracking</li>
+                            <li><svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>Google Analytics dashboard</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- E-COMMERCE PACKAGES -->
+            <div class="section-header">
+                <h3>Online Stores (E-Commerce)</h3>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="card-header"><h4>Starter Store</h4><div class="price">R5,500</div><div class="monthly-total">+ R349/month</div></div>
+                    <div class="card-body"><ul class="feature-list"><li><svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>Up to 20 products</li><li><svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>Shopping cart & checkout</li><li><svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>PayFast / Yoco integration</li></ul></div>
+                </div>
+                <div class="pricing-card recommended">
+                    <div class="recommended-badge">Popular</div>
+                    <div class="card-header"><h4>Growing Store</h4><div class="price">R8,500</div><div class="monthly-total">+ R499/month</div></div>
+                    <div class="card-body"><ul class="feature-list"><li><svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>Up to 100 products</li><li><svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>Coupons & discounts</li><li><svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>Product reviews</li><li><svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>Order management</li></ul></div>
+                </div>
+                <div class="pricing-card">
+                    <div class="card-header"><h4>Advanced Store</h4><div class="price">R12,500</div><div class="monthly-total">+ R749/month</div></div>
+                    <div class="card-body"><ul class="feature-list"><li><svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>Unlimited products</li><li><svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>Abandoned cart recovery</li><li><svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>Inventory management</li><li><svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>Sales reports</li></ul></div>
+                </div>
+            </div>
+
+            <!-- WEB APPLICATION PACKAGES -->
+            <div class="section-header">
+                <h3>Custom Web Apps</h3>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="card-header"><h4>Basic App</h4><div class="price">R6,500</div><div class="monthly-total">+ R399/month</div></div>
+                    <div class="card-body"><ul class="feature-list"><li><svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>User login system</li><li><svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>1 data module</li><li><svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>Admin panel</li></ul></div>
+                </div>
+                <div class="pricing-card">
+                    <div class="card-header"><h4>Professional App</h4><div class="price">R11,500</div><div class="monthly-total">+ R649/month</div></div>
+                    <div class="card-body"><ul class="feature-list"><li><svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>Multiple user roles</li><li><svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>File uploads</li><li><svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>Reports export</li></ul></div>
+                </div>
+                <div class="pricing-card">
+                    <div class="card-header"><h4>Premium App</h4><div class="price">R18,500</div><div class="monthly-total">+ R999/month</div></div>
+                    <div class="card-body"><ul class="feature-list"><li><svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>Full featured app</li><li><svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>API integration</li><li><svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>Real-time features</li></ul></div>
+                </div>
+            </div>
+
+            <!-- ADD-ON SERVICES -->
+            <div class="section-header">
+                <h3>Add-on Services</h3>
+            </div>
+            <div class="pricing-grid" style="margin-bottom: 20px;">
+                <div class="pricing-card">
+                    <div class="card-header"><h4>Monthly Care</h4><div class="price">R99 – R399</div><div class="monthly-total">per month</div></div>
+                    <div class="card-body"><ul class="feature-list"><li><svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>Backups & security</li><li><svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>Content updates</li><li><svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>Email support</li></ul></div>
+                </div>
+                <div class="pricing-card">
+                    <div class="card-header"><h4>SEO Package</h4><div class="price">R500</div><div class="monthly-total">once-off</div></div>
+                    <div class="card-body"><ul class="feature-list"><li><svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>Meta tags & keywords</li><li><svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>Sitemap & robots.txt</li><li><svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>Google Search Console</li></ul></div>
+                </div>
+                <div class="pricing-card">
+                    <div class="card-header"><h4>Extra Page</h4><div class="price">R250</div><div class="monthly-total">per page</div></div>
+                    <div class="card-body"><ul class="feature-list"><li><svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>Custom design</li><li><svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>Mobile responsive</li><li><svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>SEO optimized</li></ul></div>
+                </div>
+                <div class="pricing-card">
+                    <div class="card-header"><h4>Training</h4><div class="price">R300</div><div class="monthly-total">per hour</div></div>
+                    <div class="card-body"><ul class="feature-list"><li><svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>1-on-1 coaching</li><li><svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>How to update site</li><li><svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>Google Analytics</li></ul></div>
+                </div>
+            </div>
+
+            <!-- Note -->
+            <div class="pricing-note">
+                <p><strong>📍 Pietermaritzburg & Durban Rates</strong> • All prices in ZAR • Free domain registration assistance • Payment plans available (spread over 2-3 months) • No contracts, cancel anytime • <a href="Contact.html" style="color:#555; text-decoration:underline;">Get a custom quote →</a></p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <a href="#">Siphosethu Zuma — Web Development | Based in PMB/Durban</a>
+        </div>
+    </footer>
+
+    <!-- FLOATING WHATSAPP ICON -->
+    <a href="https://wa.me/27671405116?text=Hi%20Siphosethu%2C%20I'm%20interested%20in%20your%20web%20development%20services" 
+       class="whatsapp-float" 
+       target="_blank" 
+       rel="noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.66-1.03-5.15-2.92-7.03A9.86 9.86 0 0 0 12.04 2zm.01 1.67c2.2 0 4.26.86 5.82 2.42a8.21 8.21 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.24 8.23-1.48 0-2.93-.39-4.19-1.12l-.3-.18-3.12.82.84-3.04-.2-.31a8.13 8.13 0 0 1-1.22-4.4c0-4.54 3.7-8.25 8.24-8.25zM8.53 7.33c-.16 0-.43.06-.66.31-.23.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.57.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.53.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.11-.22-.17-.46-.3-.24-.13-1.41-.7-1.63-.78-.22-.08-.38-.13-.54.13-.16.26-.63.78-.77.94-.14.16-.28.18-.52.06-.24-.12-1.01-.37-1.92-1.18-.71-.64-1.19-1.42-1.33-1.66-.14-.24-.02-.36.1-.48.12-.12.26-.31.39-.47.13-.16.17-.27.26-.45.09-.18.04-.34-.02-.48-.06-.14-.54-1.31-.74-1.79-.2-.47-.4-.41-.54-.42-.14-.01-.3-.01-.46-.01z"/>
+        </svg>
+        <span class="whatsapp-tooltip">Chat on WhatsApp</span>
+    </a>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
