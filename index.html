@@ -169,24 +169,25 @@
             font-weight: 500;
         }
 
-        /* ========== FIXED RESPONSIVE HERO SECTION - CONSISTENT OVERLAY ========== */
+        /* ========== FIXED HERO SECTION - NO CROPPING ON MOBILE ========== */
         .hero-section {
             position: relative;
             background-image: url('images/BackgroundImg2.png');
-            background-size: cover;
-            background-position: center center;
             background-repeat: no-repeat;
-            min-height: 100vh;
             width: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
             box-sizing: border-box;
-            /* Simple fallback color - no blending effects */
             background-color: #1a1a2e;
+            
+            /* Desktop: cover works well */
+            background-size: cover;
+            background-position: center center;
+            min-height: 100vh;
         }
 
-        /* Semi-transparent overlay - FIXED: consistent color at all screen sizes */
+        /* Semi-transparent overlay */
         .hero-section::before {
             content: '';
             position: absolute;
@@ -213,34 +214,26 @@
             text-align: center;
         }
 
-        /* Responsive adjustments for hero section */
-        @media (max-width: 992px) {
-            .hero-section {
-                min-height: 95vh;
-                background-position: center 30%;
-            }
-            .hero-content {
-                padding: 1.5rem 1.5rem 3rem 1.5rem;
-            }
-        }
-
+        /* MOBILE FIX: On small screens, show the FULL image without cropping */
         @media (max-width: 768px) {
             .hero-section {
-                min-height: 90vh;
-                background-size: cover;
-                background-position: center 25%;
-                background-attachment: scroll;
-            }
-            .hero-content {
-                padding: 1rem 1rem 2.5rem 1rem;
+                /* Change to contain on mobile to show full image without cropping */
+                background-size: contain;
+                background-position: center center;
+                background-repeat: no-repeat;
+                /* Use min-height to ensure image fits */
+                min-height: 100vh;
+                /* Background color shows where image doesn't cover */
+                background-color: #0a1928;
             }
         }
 
+        /* For very small devices, ensure image is fully visible */
         @media (max-width: 576px) {
             .hero-section {
-                min-height: 85vh;
-                background-position: center 20%;
-                background-size: cover;
+                background-size: contain;
+                background-position: center center;
+                min-height: 100vh;
             }
             .hero-content {
                 padding: 0.5rem 1rem 2rem 1rem;
@@ -248,11 +241,20 @@
             }
         }
 
-        /* Extra small devices */
-        @media (max-width: 480px) {
+        /* For landscape orientation on mobile, adjust */
+        @media (max-width: 768px) and (orientation: landscape) {
             .hero-section {
-                min-height: 80vh;
-                background-position: center 15%;
+                min-height: 120vh;
+                background-size: contain;
+            }
+        }
+
+        /* For tablets, use a hybrid approach */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .hero-section {
+                background-size: cover;
+                background-position: center center;
+                min-height: 100vh;
             }
         }
 
@@ -533,7 +535,6 @@
                         <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="About.html">About</a></li>
                         <li class="nav-item"><a class="nav-link" href="Pricing.html">Pricing</a></li>
-                      
                         <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
                     </ul>
 
@@ -610,7 +611,7 @@
         }
         
         // Verify responsive behavior
-        console.log('Responsive portfolio loaded - overlay color remains consistent on all screen sizes');
+        console.log('Responsive portfolio loaded - Image now shows fully on mobile without cropping');
     </script>
 </body>
 </html>
