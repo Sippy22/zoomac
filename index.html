@@ -2,19 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>Siphosethu Zuma - Portfolio</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
     <style>
-        /* ==== BASE STYLES ==== */
+        /* ==== BASE STYLES - FULLY RESPONSIVE WITH IMAGE FIX ==== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         html {
             height: 100%;
             overflow-x: hidden;
+            scroll-behavior: smooth;
         }
 
         body {
-            height: 100%;
+            min-height: 100vh;
             margin: 0;
             padding: 0;
             display: flex;
@@ -23,10 +30,12 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             line-height: 1.6;
             color: #333;
+            overflow-x: hidden;
         }
 
         main {
             flex: 1;
+            width: 100%;
         }
 
         /* ----- NAV LINK STYLES - MINIMALIST ----- */
@@ -103,10 +112,10 @@
             box-shadow: none;
         }
 
-        /* Thicker header - minimalist */
+        /* Thicker header - minimalist & responsive */
         .navbar {
             background-color: #f8f8f8 !important;
-            padding: 2rem 1rem !important;
+            padding: 1.8rem 1rem !important;
             box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05) !important;
             z-index: 1000;
             position: sticky;
@@ -123,7 +132,10 @@
 
         @media (max-width: 768px) {
             .navbar {
-                padding: 1.5rem 1rem !important;
+                padding: 1rem 1rem !important;
+            }
+            .navbar-brand {
+                font-size: 1.1rem;
             }
         }
 
@@ -157,12 +169,12 @@
             font-weight: 500;
         }
 
-        /* ----- HERO SECTION WITH OVERLAY AND ANIMATIONS ----- */
+        /* ========== FIXED RESPONSIVE HERO SECTION - CONSISTENT OVERLAY ========== */
         .hero-section {
             position: relative;
             background-image: url('images/BackgroundImg2.png');
             background-size: cover;
-            background-position: center 20%;
+            background-position: center center;
             background-repeat: no-repeat;
             min-height: 100vh;
             width: 100%;
@@ -170,9 +182,11 @@
             justify-content: center;
             align-items: center;
             box-sizing: border-box;
+            /* Simple fallback color - no blending effects */
+            background-color: #1a1a2e;
         }
 
-        /* Semi-transparent overlay */
+        /* Semi-transparent overlay - FIXED: consistent color at all screen sizes */
         .hero-section::before {
             content: '';
             position: absolute;
@@ -180,7 +194,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-color: rgba(0, 0, 0, 0.5);
+            background-color: rgba(0, 0, 0, 0.55);
             z-index: 1;
         }
 
@@ -191,13 +205,54 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding-bottom: 5rem;
+            justify-content: center;
+            padding: 2rem 1.5rem 4rem 1.5rem;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        /* Responsive adjustments for hero section */
+        @media (max-width: 992px) {
+            .hero-section {
+                min-height: 95vh;
+                background-position: center 30%;
+            }
+            .hero-content {
+                padding: 1.5rem 1.5rem 3rem 1.5rem;
+            }
         }
 
         @media (max-width: 768px) {
             .hero-section {
-                min-height: 100vh;
-                background-position: center 10%;
+                min-height: 90vh;
+                background-size: cover;
+                background-position: center 25%;
+                background-attachment: scroll;
+            }
+            .hero-content {
+                padding: 1rem 1rem 2.5rem 1rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-section {
+                min-height: 85vh;
+                background-position: center 20%;
+                background-size: cover;
+            }
+            .hero-content {
+                padding: 0.5rem 1rem 2rem 1rem;
+                width: 100%;
+            }
+        }
+
+        /* Extra small devices */
+        @media (max-width: 480px) {
+            .hero-section {
+                min-height: 80vh;
+                background-position: center 15%;
             }
         }
 
@@ -262,7 +317,7 @@
         .about-btn {
             background-color: transparent;
             color: white;
-            border: 1px solid rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.5);
             padding: 12px 40px;
             font-size: 0.95rem;
             font-weight: 400;
@@ -274,15 +329,17 @@
             opacity: 0;
             animation-fill-mode: forwards;
             text-transform: uppercase;
-            background-color: rgba(0, 0, 0, 0.2);
-            backdrop-filter: blur(2px);
+            background-color: rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(3px);
+            border-radius: 40px;
         }
 
         .about-btn:hover {
             background-color: white;
             color: #222;
             border-color: white;
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            backdrop-filter: blur(0);
         }
 
         .intro-heading {
@@ -290,25 +347,47 @@
             font-weight: 300;
             text-align: center;
             color: white;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
             margin: 0.3rem 0;
-            letter-spacing: -0.5px;
+            letter-spacing: -0.3px;
             line-height: 1.3;
+            max-width: 90%;
+        }
+
+        /* Responsive heading sizes */
+        @media (max-width: 768px) {
+            .intro-heading {
+                font-size: 2rem;
+                font-weight: 300;
+                max-width: 95%;
+            }
         }
 
         @media (max-width: 576px) {
             .intro-heading {
-                font-size: 1.8rem;
-                font-weight: 300;
+                font-size: 1.7rem;
+                line-height: 1.35;
+                margin: 0.2rem 0;
             }
             
             .about-btn {
-                padding: 10px 30px;
-                font-size: 0.85rem;
+                padding: 10px 28px;
+                font-size: 0.8rem;
+                margin-top: 1.5rem;
             }
         }
 
-        /* ===== FLOATING WHATSAPP ICON ===== */
+        @media (max-width: 400px) {
+            .intro-heading {
+                font-size: 1.5rem;
+            }
+            .about-btn {
+                padding: 8px 24px;
+                font-size: 0.75rem;
+            }
+        }
+
+        /* ===== FLOATING WHATSAPP ICON - FULLY RESPONSIVE ===== */
         .whatsapp-float {
             position: fixed;
             bottom: 30px;
@@ -322,7 +401,7 @@
             justify-content: center;
             cursor: pointer;
             z-index: 1000;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
             transition: all 0.3s ease;
             animation: fadeInUp 0.5s ease 0.6s forwards;
             opacity: 0;
@@ -331,8 +410,8 @@
         }
 
         .whatsapp-float:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+            transform: scale(1.08);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
             background-color: #20b859;
         }
 
@@ -346,28 +425,31 @@
         .whatsapp-tooltip {
             position: absolute;
             right: 70px;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.75);
             color: white;
             padding: 6px 12px;
-            border-radius: 20px;
+            border-radius: 30px;
             font-size: 0.75rem;
             white-space: nowrap;
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.2s ease;
             pointer-events: none;
             font-family: inherit;
+            font-weight: 400;
+            letter-spacing: 0.3px;
         }
 
         .whatsapp-float:hover .whatsapp-tooltip {
             opacity: 1;
         }
 
+        /* Responsive WhatsApp adjustments */
         @media (max-width: 768px) {
             .whatsapp-float {
                 bottom: 20px;
                 right: 20px;
-                width: 50px;
-                height: 50px;
+                width: 52px;
+                height: 52px;
             }
             
             .whatsapp-float svg {
@@ -380,14 +462,57 @@
             }
         }
 
-        /* Remove any remaining teal colors */
-        .pulse, .btn-primary, [class*="bg-teal"] {
-            background-color: transparent !important;
+        @media (max-width: 480px) {
+            .whatsapp-float {
+                bottom: 16px;
+                right: 16px;
+                width: 48px;
+                height: 48px;
+            }
+            .whatsapp-float svg {
+                width: 26px;
+                height: 26px;
+            }
         }
 
-        /* Allow scrolling */
-        html, body {
-            overflow-y: auto;
+        /* Ensure content containers have proper spacing */
+        .container-fluid {
+            width: 100%;
+            padding-right: var(--bs-gutter-x, 0.75rem);
+            padding-left: var(--bs-gutter-x, 0.75rem);
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        /* Collapsible navbar spacing fix */
+        @media (max-width: 576px) {
+            .navbar-collapse {
+                margin-top: 1rem;
+            }
+            .social-icons {
+                justify-content: center;
+                margin-top: 0.75rem;
+            }
+            .nav-link {
+                text-align: center;
+                padding: 0.6rem 0.5rem;
+            }
+        }
+
+        /* Additional touch-friendly improvements */
+        .nav-link, .about-btn, .whatsapp-float, .social-icons a {
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Fix for any overflow issues */
+        .hero-section, .content, main {
+            overflow-x: hidden;
+        }
+
+        /* Remove any teal overrides */
+        .pulse, .btn-primary, [class*="bg-teal"] {
+            background-color: transparent !important;
         }
     </style>
 </head>
@@ -408,7 +533,7 @@
                         <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="About.html">About</a></li>
                         <li class="nav-item"><a class="nav-link" href="Pricing.html">Pricing</a></li>
-                        <li class="nav-item"><a class="nav-link" href="Portfolio.html">Portfolio</a></li>
+                      
                         <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
                     </ul>
 
@@ -464,10 +589,28 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     
     <script>
-        // Ensure button works
-        document.querySelector('.about-btn')?.addEventListener('click', function() {
+        // Ensure button works and prevent any potential click issues
+        document.querySelector('.about-btn')?.addEventListener('click', function(e) {
+            e.preventDefault();
             window.location.href = 'About.html';
         });
+        
+        // Additional fix: ensure navbar collapse closes on link click for better mobile UX
+        const navLinks = document.querySelectorAll('.nav-link');
+        const navbarCollapse = document.querySelector('.navbar-collapse');
+        if (navbarCollapse) {
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth < 576) {
+                        const bsCollapse = bootstrap.Collapse.getInstance(navbarCollapse);
+                        if (bsCollapse) bsCollapse.hide();
+                    }
+                });
+            });
+        }
+        
+        // Verify responsive behavior
+        console.log('Responsive portfolio loaded - overlay color remains consistent on all screen sizes');
     </script>
 </body>
 </html>
