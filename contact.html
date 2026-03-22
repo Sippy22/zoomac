@@ -190,6 +190,17 @@
             }
         }
 
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         /* Contact Wrapper */
         .contact-wrapper {
             max-width: 1200px;
@@ -232,26 +243,51 @@
             margin-top: 20px;
         }
 
-        /* Alert */
+        /* Alert Styles - Enhanced with animations */
         .alert {
-            padding: 12px 15px;
+            padding: 15px 20px;
             margin-bottom: 25px;
-            border: 1px solid #eaeaea;
+            border-radius: 4px;
             font-size: 0.95rem;
-            font-weight: 300;
-            animation: scaleIn 0.5s ease;
+            font-weight: 400;
+            animation: slideDown 0.5s ease forwards;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
         .alert-success {
-            background-color: #f8f8f8;
-            border-color: #ddd;
-            color: #2c3e50;
+            background-color: #d4edda;
+            border-left: 4px solid #28a745;
+            color: #155724;
         }
 
         .alert-error {
-            background-color: #f8f8f8;
-            border-color: #ddd;
-            color: #b02a37;
+            background-color: #f8d7da;
+            border-left: 4px solid #dc3545;
+            color: #721c24;
+        }
+
+        .alert-info {
+            background-color: #d1ecf1;
+            border-left: 4px solid #17a2b8;
+            color: #0c5460;
+        }
+
+        .alert-close {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: inherit;
+            opacity: 0.6;
+            transition: opacity 0.2s ease;
+            padding: 0 5px;
+        }
+
+        .alert-close:hover {
+            opacity: 1;
         }
 
         /* Contact Grid */
@@ -458,7 +494,7 @@
         }
 
         .submit-btn:disabled {
-            opacity: 0.5;
+            opacity: 0.6;
             cursor: not-allowed;
             transform: none;
         }
@@ -470,7 +506,7 @@
         }
 
         .loading {
-            opacity: 0.7;
+            position: relative;
         }
 
         /* ===== FLOATING WHATSAPP ICON ===== */
@@ -604,7 +640,6 @@
                         <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="About.html">About</a></li>
                         <li class="nav-item"><a class="nav-link" href="Pricing.html">Pricing</a></li>
-                       
                         <li class="nav-item"><a class="nav-link active" href="contact.html">Contact</a></li>
                     </ul>
 
@@ -630,7 +665,8 @@
                 <p>Get in touch with me</p>
             </div>
 
-            <div id="messageAlert" class="alert" style="display:none;"></div>
+            <!-- Alert container for messages -->
+            <div id="messageAlert" style="display:none;"></div>
 
             <div class="contact-grid">
                 <!-- Map Section -->
@@ -735,17 +771,37 @@
             .bindPopup('333 Church Street, Pietermaritzburg')
             .openPopup();
 
+        // Function to show alert message
+        function showAlert(message, type) {
+            const alertContainer = document.getElementById('messageAlert');
+            alertContainer.style.display = 'block';
+            
+            // Create alert HTML with close button
+            alertContainer.innerHTML = `
+                <div class="alert alert-${type}">
+                    <span>${message}</span>
+                    <button class="alert-close" onclick="this.parentElement.parentElement.style.display='none'">&times;</button>
+                </div>
+            `;
+            
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                if (alertContainer.style.display !== 'none') {
+                    alertContainer.style.display = 'none';
+                }
+            }, 5000);
+        }
+
         // Handle form submission
         document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
             const submitBtn = document.getElementById('submitBtn');
-            const messageAlert = document.getElementById('messageAlert');
+            const originalText = submitBtn.textContent;
             
+            // Disable button and show loading state
             submitBtn.disabled = true;
             submitBtn.textContent = 'Sending...';
-            submitBtn.classList.add('loading');
-            messageAlert.style.display = 'none';
             
             const serviceID = 'service_zirnrlc';
             const templateID = 'template_xnsdkti';
@@ -759,25 +815,21 @@
             
             emailjs.send(serviceID, templateID, templateParams)
                 .then(() => {
-                    messageAlert.textContent = 'Message sent successfully!';
-                    messageAlert.className = 'alert alert-success';
-                    messageAlert.style.display = 'block';
+                    // Show success message
+                    showAlert('✓ Message sent successfully! Thank you for reaching out. I\'ll get back to you soon.', 'success');
+                    
+                    // Reset the form
                     document.getElementById('contactForm').reset();
                 })
                 .catch((error) => {
-                    messageAlert.textContent = 'Failed to send message. Please try again.';
-                    messageAlert.className = 'alert alert-error';
-                    messageAlert.style.display = 'block';
+                    // Show error message
+                    showAlert('✗ Failed to send message. Please try again or contact me directly via WhatsApp.', 'error');
                     console.error('EmailJS Error:', error);
                 })
                 .finally(() => {
+                    // Re-enable button and restore text
                     submitBtn.disabled = false;
-                    submitBtn.textContent = 'Send Message';
-                    submitBtn.classList.remove('loading');
-                    
-                    setTimeout(() => {
-                        messageAlert.style.display = 'none';
-                    }, 5000);
+                    submitBtn.textContent = originalText;
                 });
         });
     </script>
