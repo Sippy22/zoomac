@@ -4,7 +4,6 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>Siphosethu Zuma - Portfolio</title>
-    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
     <style>
         * {
@@ -13,41 +12,19 @@
             box-sizing: border-box;
         }
 
-        html, body {
-            height: 100%;
-            overflow-x: hidden;
-        }
-
         body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            background-color: white;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             line-height: 1.6;
             color: #333;
         }
 
-        main {
-            flex: 1;
-            width: 100%;
-        }
-
-        /* Navigation Styles */
+        /* Navigation */
         .nav-link {
             position: relative;
             color: #444444 !important;
-            text-decoration: none !important;
-            transition: color 0.3s ease;
             padding: 0.5rem 1rem;
             margin: 0 5px;
             font-weight: 400;
-            letter-spacing: 0.3px;
-        }
-
-        .nav-link:hover {
-            color: #666666 !important;
         }
 
         .nav-link.active {
@@ -55,81 +32,24 @@
             font-weight: 500;
         }
 
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: 5px;
-            left: 1rem;
-            width: 0;
-            height: 1px;
-            background-color: #999;
-            transition: width 0.3s ease;
-        }
-
-        .nav-link:hover::after {
-            width: calc(80% - 1rem);
-        }
-
-        .nav-link.active::after {
-            width: calc(80% - 1rem) !important;
-            background-color: #222 !important;
-        }
-
         .social-icons svg {
             width: 22px;
             height: 22px;
             fill: #777;
-            transition: all 0.2s ease;
-            opacity: 0.7;
-        }
-
-        .social-icons a:hover svg {
-            fill: #333;
-            opacity: 1;
-            transform: translateY(-2px);
-        }
-
-        .btn-hover {
-            transition: transform 0.3s ease;
-            display: inline-block;
-        }
-
-        .navbar-toggler-icon {
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(0, 0, 0, 0.5)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-        }
-
-        .navbar-toggler {
-            border: none;
-            padding: 0.5rem;
-        }
-
-        .navbar-toggler:focus {
-            box-shadow: none;
         }
 
         .navbar {
             background-color: #f8f8f8 !important;
-            padding: 1.8rem 1rem !important;
-            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05) !important;
-            z-index: 1000;
+            padding: 1.5rem 1rem !important;
             position: sticky;
             top: 0;
+            z-index: 1000;
             border-bottom: 1px solid #eaeaea;
-        }
-
-        .navbar-brand {
-            color: #222 !important;
-            font-weight: 400;
-            letter-spacing: 0.5px;
-            font-size: 1.3rem;
         }
 
         @media (max-width: 768px) {
             .navbar {
                 padding: 1rem 1rem !important;
-            }
-            .navbar-brand {
-                font-size: 1.1rem;
             }
         }
 
@@ -140,97 +60,89 @@
             border-top: 1px solid #eaeaea;
         }
         
-        footer .container a {
+        footer a {
             color: #777;
             text-decoration: none;
-            display: block;
-            text-align: center;
-            margin: 0 auto;
-            font-size: 0.9rem;
-            letter-spacing: 0.5px;
-            transition: color 0.2s ease;
-        }
-        
-        footer .container a:hover {
-            color: #333;
         }
 
-        /* ========== HERO SECTION - FULL SCREEN WITH FULL IMAGE ========== */
+        /* HERO SECTION - THE WORKING SOLUTION */
         .hero-section {
             position: relative;
             width: 100%;
             height: 100vh;
-            overflow: hidden;
+            background-image: url('images/BackgroundImg2.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .hero-image {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center center;
-        }
-
-        .hero-overlay {
+        /* Dark Overlay */
+        .hero-section::before {
+            content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background-color: rgba(0, 0, 0, 0.55);
-            z-index: 1;
+            background: rgba(0, 0, 0, 0.55);
         }
 
+        /* Content */
         .hero-content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            position: relative;
             z-index: 2;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            max-width: 1200px;
             text-align: center;
             padding: 2rem;
+            width: 90%;
+            max-width: 800px;
+        }
+
+        .intro-heading {
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: white;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+            margin: 0.5rem 0;
+        }
+
+        .about-btn {
+            background-color: transparent;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            padding: 12px 40px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 2rem;
+            text-transform: uppercase;
+            background-color: rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(3px);
+            border-radius: 40px;
+        }
+
+        .about-btn:hover {
+            background-color: white;
+            color: #222;
+            transform: translateY(-3px);
         }
 
         /* Animations */
-        @keyframes fadeInScale {
-            from {
-                opacity: 0;
-                transform: scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
         @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
+            from { opacity: 0; transform: translateX(-40px); }
+            to { opacity: 1; transform: translateX(0); }
         }
 
         @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
+            from { opacity: 0; transform: translateX(40px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
         }
 
         .intro-heading:first-of-type {
@@ -245,63 +157,40 @@
         }
 
         .about-btn {
-            background-color: transparent;
-            color: white;
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            padding: 12px 40px;
-            font-size: 0.95rem;
-            font-weight: 400;
-            letter-spacing: 1.5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 2rem;
             animation: fadeInScale 1s ease 0.4s forwards;
             opacity: 0;
             animation-fill-mode: forwards;
-            text-transform: uppercase;
-            background-color: rgba(0, 0, 0, 0.25);
-            backdrop-filter: blur(3px);
-            border-radius: 40px;
         }
 
-        .about-btn:hover {
-            background-color: white;
-            color: #222;
-            border-color: white;
-            transform: translateY(-3px);
-            backdrop-filter: blur(0);
-        }
-
-        .intro-heading {
-            font-size: 2.5rem;
-            font-weight: 300;
-            text-align: center;
-            color: white;
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
-            margin: 0.3rem 0;
-            letter-spacing: -0.3px;
-            line-height: 1.3;
-        }
-
+        /* MOBILE RESPONSIVE */
         @media (max-width: 768px) {
             .intro-heading {
-                font-size: 2rem;
+                font-size: 1.8rem;
+            }
+            .about-btn {
+                padding: 10px 30px;
+                font-size: 0.85rem;
+                margin-top: 1.5rem;
             }
         }
 
         @media (max-width: 576px) {
             .intro-heading {
-                font-size: 1.7rem;
+                font-size: 1.5rem;
             }
-            
             .about-btn {
-                padding: 10px 28px;
+                padding: 8px 24px;
                 font-size: 0.8rem;
-                margin-top: 1.5rem;
+            }
+            .navbar-collapse {
+                margin-top: 1rem;
+            }
+            .nav-link {
+                text-align: center;
             }
         }
 
-        /* WhatsApp Float */
+        /* WhatsApp Button */
         .whatsapp-float {
             position: fixed;
             bottom: 30px;
@@ -313,9 +202,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
             z-index: 1000;
-            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
             transition: all 0.3s ease;
             text-decoration: none;
         }
@@ -331,24 +218,6 @@
             fill: white;
         }
 
-        .whatsapp-tooltip {
-            position: absolute;
-            right: 70px;
-            background: rgba(0, 0, 0, 0.75);
-            color: white;
-            padding: 6px 12px;
-            border-radius: 30px;
-            font-size: 0.75rem;
-            white-space: nowrap;
-            opacity: 0;
-            transition: opacity 0.2s ease;
-            pointer-events: none;
-        }
-
-        .whatsapp-float:hover .whatsapp-tooltip {
-            opacity: 1;
-        }
-
         @media (max-width: 768px) {
             .whatsapp-float {
                 bottom: 20px;
@@ -360,52 +229,29 @@
                 width: 28px;
                 height: 28px;
             }
-            .whatsapp-tooltip {
-                display: none;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .navbar-collapse {
-                margin-top: 1rem;
-            }
-            .social-icons {
-                justify-content: center;
-                margin-top: 0.75rem;
-            }
-            .nav-link {
-                text-align: center;
-                padding: 0.6rem 0.5rem;
-            }
         }
     </style>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm box-shadow sticky-top">
+        <nav class="navbar navbar-expand-sm">
             <div class="container-fluid">
-                <a class="navbar-brand mx-auto d-sm-none" href="#">Siphosethu Zuma</a>
-                <a class="navbar-brand d-none d-sm-block" href="#">Siphosethu Zuma</a>
-                
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse">
+                <a class="navbar-brand" href="#">Siphosethu Zuma</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav mx-auto">
                         <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="About.html">About</a></li>
                         <li class="nav-item"><a class="nav-link" href="Pricing.html">Pricing</a></li>
                         <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
                     </ul>
-
-                    <div class="social-icons d-flex gap-3">
+                    <div class="social-icons">
                         <a href="https://www.linkedin.com/in/siphosethu-zuma-a41776211/" target="_blank">
-                            <div class="btn-hover">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                    <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/>
-                                </svg>
-                            </div>
+                            <svg viewBox="0 0 24 24">
+                                <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/>
+                            </svg>
                         </a>
                     </div>
                 </div>
@@ -415,11 +261,9 @@
 
     <main>
         <div class="hero-section">
-            <img src="images/BackgroundImg2.png" alt="Background" class="hero-image" />
-            <div class="hero-overlay"></div>
             <div class="hero-content">
-                <h2 class="intro intro-heading">Siphosethu Zuma</h2>
-                <h2 class="intro intro-heading">I'm a professional software developer</h2>
+                <h2 class="intro-heading">Siphosethu Zuma</h2>
+                <h2 class="intro-heading">I'm a professional software developer</h2>
                 <button class="about-btn" onclick="window.location.href='About.html'">About me</button>
             </div>
         </div>
@@ -431,36 +275,23 @@
         </div>
     </footer>
 
-    <a href="https://wa.me/27671405116?text=Hi%20Siphosethu%2C%20I'm%20interested%20in%20your%20web%20development%20services" 
-       class="whatsapp-float" 
-       target="_blank">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <a href="https://wa.me/27671405116?text=Hi%20Siphosethu" class="whatsapp-float" target="_blank">
+        <svg viewBox="0 0 24 24">
             <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.66-1.03-5.15-2.92-7.03A9.86 9.86 0 0 0 12.04 2zm.01 1.67c2.2 0 4.26.86 5.82 2.42a8.21 8.21 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.24 8.23-1.48 0-2.93-.39-4.19-1.12l-.3-.18-3.12.82.84-3.04-.2-.31a8.13 8.13 0 0 1-1.22-4.4c0-4.54 3.7-8.25 8.24-8.25zM8.53 7.33c-.16 0-.43.06-.66.31-.23.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.57.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.53.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.11-.22-.17-.46-.3-.24-.13-1.41-.7-1.63-.78-.22-.08-.38-.13-.54.13-.16.26-.63.78-.77.94-.14.16-.28.18-.52.06-.24-.12-1.01-.37-1.92-1.18-.71-.64-1.19-1.42-1.33-1.66-.14-.24-.02-.36.1-.48.12-.12.26-.31.39-.47.13-.16.17-.27.26-.45.09-.18.04-.34-.02-.48-.06-.14-.54-1.31-.74-1.79-.2-.47-.4-.41-.54-.42-.14-.01-.3-.01-.46-.01z"/>
         </svg>
-        <span class="whatsapp-tooltip">Chat on WhatsApp</span>
     </a>
 
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    
     <script>
-        document.querySelector('.about-btn')?.addEventListener('click', function(e) {
-            e.preventDefault();
-            window.location.href = 'About.html';
-        });
-        
-        const navLinks = document.querySelectorAll('.nav-link');
-        const navbarCollapse = document.querySelector('.navbar-collapse');
-        if (navbarCollapse) {
-            navLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    if (window.innerWidth < 576) {
-                        const bsCollapse = bootstrap.Collapse.getInstance(navbarCollapse);
-                        if (bsCollapse) bsCollapse.hide();
-                    }
-                });
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                const navbarCollapse = document.querySelector('.navbar-collapse');
+                if (navbarCollapse.classList.contains('show')) {
+                    bootstrap.Collapse.getInstance(navbarCollapse).hide();
+                }
             });
-        }
+        });
     </script>
 </body>
 </html>
