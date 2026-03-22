@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>Siphosethu Zuma - Portfolio</title>
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
     <style>
         * {
@@ -16,6 +17,7 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             line-height: 1.6;
             color: #333;
+            background-color: white;
         }
 
         /* Navigation */
@@ -65,39 +67,44 @@
             text-decoration: none;
         }
 
-        /* HERO SECTION - THE WORKING SOLUTION */
+        /* HERO SECTION - WORKING SOLUTION */
         .hero-section {
             position: relative;
             width: 100%;
             height: 100vh;
-            background-image: url('images/BackgroundImg2.png');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            overflow: hidden;
         }
 
-        /* Dark Overlay */
-        .hero-section::before {
-            content: '';
+        .hero-img {
             position: absolute;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.55);
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
         }
 
-        /* Content */
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.55);
+            z-index: 1;
+        }
+
         .hero-content {
-            position: relative;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             z-index: 2;
             text-align: center;
-            padding: 2rem;
             width: 90%;
             max-width: 800px;
+            padding: 1rem;
         }
 
         .intro-heading {
@@ -162,7 +169,7 @@
             animation-fill-mode: forwards;
         }
 
-        /* MOBILE RESPONSIVE */
+        /* Mobile Responsive */
         @media (max-width: 768px) {
             .intro-heading {
                 font-size: 1.8rem;
@@ -261,6 +268,8 @@
 
     <main>
         <div class="hero-section">
+            <img src="images/BackgroundImg2.png" alt="Background" class="hero-img">
+            <div class="hero-overlay"></div>
             <div class="hero-content">
                 <h2 class="intro-heading">Siphosethu Zuma</h2>
                 <h2 class="intro-heading">I'm a professional software developer</h2>
@@ -283,7 +292,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Close mobile menu when clicking a link
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', () => {
                 const navbarCollapse = document.querySelector('.navbar-collapse');
